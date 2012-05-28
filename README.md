@@ -2,6 +2,10 @@
 
 [travis]: http://travis-ci.org/ahcarpenter/spreader
 
+## Installation
+`spreader` can be installed via the following command:
+`gem install spreader`
+
 ## Usage
 Given an XML file containing one or more nodes formatted in the following manner:
     <p>`<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees <, altitude_in_decimal_degrees></coordinates>`
