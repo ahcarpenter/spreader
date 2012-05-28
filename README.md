@@ -4,7 +4,7 @@
 
 ## Installation
 `spreader` can be installed via the following command:
-<br>`gem install spreader`
+<p>`gem install spreader`
 
 ## Usage
 Given an XML file containing one or more nodes formatted in the following manner:
