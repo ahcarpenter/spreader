@@ -8,6 +8,10 @@
 
 ## Usage
 Given an XML file containing one or more nodes formatted in the following manner:
-	<p>```xml<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees{, altitude_in_decimal_degrees}</coordinates>```
+	<p>```xml
+		<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees{, altitude_in_decimal_degrees}</coordinates>
+		```
 <br><br>The method call is as follows:
-	<p>```rubySpreader.seed(path_to_xml, model_name, latitude_field_name, longitude_field_name)```
+	<p>```ruby
+		Spreader.seed(path_to_xml, model_name, latitude_field_name, longitude_field_name)
+		```
