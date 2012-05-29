@@ -8,6 +8,6 @@
 
 ## Usage
 Given an XML file containing one or more nodes formatted in the following manner:
-	<p>`<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees<, altitude_in_decimal_degrees></coordinates>`
+	<p>`<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees[<i>, altitude_in_decimal_degrees</i>]</coordinates>`
 <br><br>The method call is as follows:
 	<p>`Spreader.seed(path_to_xml, model_name, latitude_field_name, longitude_field_name)`
