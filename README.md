@@ -3,7 +3,7 @@
 [travis]: http://travis-ci.org/ahcarpenter/spreader
 
 ## Installation
-```spreader``` can be installed via the issuance of the command:
+```spreader``` can be installed via the issuance of the following command:
 ```
 gem install spreader
 ```
