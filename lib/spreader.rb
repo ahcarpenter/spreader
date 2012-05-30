@@ -19,10 +19,10 @@ class Spreader
     return yield data
   end
 
-  def xml?(file)
-    head = (IO.popen('head -' + IO.popen("wc -l #{file}").gets.split(' ').first + " #{file}"))
-    while (line = head.gets)
-      @xml = true if (line.include? '<') && (!@xml)
+  def xml?(relative_path)
+    head = IO.popen('head -' + IO.popen("wc -l #{relative_path}").gets.split(' ').first + " #{relative_path}")
+    while line = head.gets
+      @xml = true if (line.include? '<') && !@xml
     end
     
     return @xml
@@ -62,9 +62,9 @@ class Spreader
     load(transform(data, model_name, latitude_field_name, longitude_field_name))
   end
   
-  def self.seed(filename, model_name, latitude_field_name, longitude_field_name)
+  def self.seed(relative_path, model_name, latitude_field_name, longitude_field_name)
     spreader = Spreader.new
-    spreader.transformLoad(spreader.extract(filename){|data| XML::Reader.file("#{data}", :options => XML::Parser::Options::NOBLANKS | XML::Parser::Options::NOENT)}, model_name, latitude_field_name, longitude_field_name) if spreader.xml?(filename)
-    spreader.transformLoad(spreader.extract(filename){|data| File.open("#{data}")}, model_name, latitude_field_name, longitude_field_name) if !spreader.xml?(filename)
+    spreader.transformLoad(spreader.extract(relative_path){|data| XML::Reader.file("#{data}", :options => XML::Parser::Options::NOBLANKS | XML::Parser::Options::NOENT)}, model_name, latitude_field_name, longitude_field_name) if spreader.xml?(relative_path)
+    spreader.transformLoad(spreader.extract(relative_path){|data| File.open("#{data}")}, model_name, latitude_field_name, longitude_field_name) if !spreader.xml?(relative_path)
   end
 end
