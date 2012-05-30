@@ -7,30 +7,48 @@
 # http://libxml.rubyforge.org/svn/tags/REL_0_9_2/README
 # http://guides.rubygems.org/make-your-own-gem/
 # http://visual.merriam-webster.com/plants-gardening/gardening/seeding-planting-tools_2.php
+# http://stackoverflow.com/questions/2741260/can-ruby-access-output-from-shell-commands-as-it-appears
+# http://www.wallpaperama.com/forums/how-to-count-the-number-of-lines-in-a-file-in-linux-shell-command-t1084.html
 
 class Spreader
   #require 'rubygems'
   require 'xml'
+  @xml = false
 
-  def extract(nodes)
-    return yield nodes
+  def extract(data)
+    return yield data
+  end
+
+  def xml?(file)
+    head = (IO.popen('head -' + IO.popen("wc -l #{file}").gets.split(' ').first + " #{file}"))
+    while (line = head.gets)
+      @xml = true if (line.include? '<') && (!@xml)
+    end
+    
+    return @xml
   end
   
-  def transform(nodes, model_name, latitude_field_name, longitude_field_name)
-    prev_name = ''
+  def transform(data, model_name, latitude_field_name, longitude_field_name)
     seeds = ''
-    # i = 0
-
-    while nodes.read
-      unless nodes.node_type == XML::Reader::TYPE_END_ELEMENT
-        seeds << model_name + '.create(:' + longitude_field_name + ' => ' + nodes.value.to_s.split(',').first + ', ' + ':' + latitude_field_name + ' => ' + nodes.value.to_s.split(',')[1] + ")\n" if (prev_name == 'coordinates') 
-        # seeds << 'thing_' + (i+=1).to_s + ":\n  lat: " + nodes.value.to_s.split(',')[1] + "\n  lng: " + nodes.value.to_s.split(',').first + "\n\n" if (prev_name == 'coordinates') 
-        prev_name = nodes.name
+    if @xml
+      prev_name = ''
+      # i = 0
+  
+      while data.read
+        unless data.node_type == XML::Reader::TYPE_END_ELEMENT
+          seeds << model_name + '.create(:' + longitude_field_name + ' => ' + data.value.to_s.split(',').first + ', ' + ':' + latitude_field_name + ' => ' + data.value.to_s.split(',')[1] + ")\n" if (prev_name == 'coordinates') 
+          # seeds << 'thing_' + (i+=1).to_s + ":\n  lat: " + nodes.value.to_s.split(',')[1] + "\n  lng: " + nodes.value.to_s.split(',').first + "\n\n" if (prev_name == 'coordinates') 
+          prev_name = data.name
+        end
+      end
+      # puts seeds.chop
+    else
+      data.each do |datum|
+        seeds << model_name + '.create(:' + longitude_field_name + ' => ' + datum.split(',').first + ', ' + ':' + latitude_field_name + ' => ' + datum.split(',').last.chop + ")\n"
       end
     end
     
-    nodes.close
-    # puts seeds.chop
+    data.close
     return seeds
   end
   
@@ -40,12 +58,13 @@ class Spreader
     system('rake db:seed')
   end
   
-  def transformLoad(nodes, model_name, latitude_field_name, longitude_field_name)
-    load(transform(nodes, model_name, latitude_field_name, longitude_field_name))
+  def transformLoad(data, model_name, latitude_field_name, longitude_field_name)
+    load(transform(data, model_name, latitude_field_name, longitude_field_name))
   end
   
   def self.seed(filename, model_name, latitude_field_name, longitude_field_name)
     spreader = Spreader.new
-    spreader.transformLoad(spreader.extract(filename){|nodes| XML::Reader.file("#{nodes}", :options => XML::Parser::Options::NOBLANKS | XML::Parser::Options::NOENT)}, model_name, latitude_field_name, longitude_field_name)
+    spreader.transformLoad(spreader.extract(filename){|data| XML::Reader.file("#{data}", :options => XML::Parser::Options::NOBLANKS | XML::Parser::Options::NOENT)}, model_name, latitude_field_name, longitude_field_name) if spreader.xml?(filename)
+    spreader.transformLoad(spreader.extract(filename){|data| File.open("#{data}")}, model_name, latitude_field_name, longitude_field_name) if !spreader.xml?(filename)
   end
 end
