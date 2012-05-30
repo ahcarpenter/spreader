@@ -23,7 +23,7 @@ Given an XML file containing nodes formatted in the following manner:
 <arbitrary_node_name>
 	<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees[, altitude_in_decimal_degrees]</coordinates>
 	<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees[, altitude_in_decimal_degrees]</coordinates>
-<arbitrary_node_name>
+</arbitrary_node_name>
 ```
 The method call is thus:
 ```ruby
