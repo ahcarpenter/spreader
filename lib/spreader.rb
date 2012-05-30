@@ -20,7 +20,7 @@ class Spreader
   end
 
   def xml?(relative_path)
-    head = IO.popen('head -' + IO.popen("wc -l #{relative_path}").gets.split(' ').first + " #{relative_path}")
+    head = IO.popen('head -' + ((IO.popen("wc -l #{relative_path}").gets.split(' ').first).to_i + 1).to_s + " #{relative_path}")
     while line = head.gets
       @xml = true if (line.include? '<') && !@xml
     end
