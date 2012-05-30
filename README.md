@@ -20,10 +20,10 @@ Spreader.seed(path_to_xml, model_name, latitude_field_name, longitude_field_name
 ```
 Given an XML file containing nodes formatted in the following manner:
 ```xml
-<arbitrary_node_name>
+<name>
 	<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees[, altitude_in_decimal_degrees]</coordinates>
 	<coordinates>longitude_in_decimal_degrees,latitude_in_decimal_degrees[, altitude_in_decimal_degrees]</coordinates>
-</arbitrary_node_name>
+</name>
 ```
 The method call is thus:
 ```ruby
