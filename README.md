@@ -18,7 +18,7 @@ The method call is as follows:
 ```ruby
 Spreader.seed(path_to_xml, model_name, latitude_field_name, longitude_field_name)
 ```
-Given a newline delimited CSV file containing one or more lines with formatted in the following manner:
+Given a newline delimited CSV file containing one or more lines formatted in the following manner:
 ```
 longitude_in_decimal_degrees,latitude_in_decimal_degrees
 ```
