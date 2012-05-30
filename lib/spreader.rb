@@ -9,6 +9,7 @@
 # http://visual.merriam-webster.com/plants-gardening/gardening/seeding-planting-tools_2.php
 # http://stackoverflow.com/questions/2741260/can-ruby-access-output-from-shell-commands-as-it-appears
 # http://www.wallpaperama.com/forums/how-to-count-the-number-of-lines-in-a-file-in-linux-shell-command-t1084.html
+# http://www.techotopia.com/index.php/Working_with_Files_in_Ruby
 
 class Spreader
   #require 'rubygems'
@@ -53,7 +54,9 @@ class Spreader
   end
   
   def load(seeds)
-    File.open('db/seeds.rb', 'w') {|f| f.write(seeds.chop)}
+    empty = File.zero?('db/seeds.rb')
+    File.open('db/seeds.rb', 'a') {|f| f.write("\n" + seeds.chop)} if !empty
+    File.open('db/seeds.rb', 'a') {|f| f.write(seeds.chop)} if empty
     # File.open('../test/fixtures/things.yml', 'w') {|f| f.write(seeds.chop.chop)}
     system('rake db:seed')
   end
