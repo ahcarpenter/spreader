@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'spreader'
-  s.version = '0.0.7'
+  s.version = '0.0.8'
   s.date = '2012-05-30'
   s.summary = ''
   # s.description = ''

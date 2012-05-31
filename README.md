@@ -16,7 +16,7 @@ Given an XML file containing one node formatted in the following manner:
 ```
 The method call is thus:
 ```ruby
-Spreader.seed(path_to_xml, model_name, latitude_field_name, longitude_field_name)
+Spreader.sow(path_to_xml, model_name, latitude_field_name, longitude_field_name)
 ```
 Given an XML file containing nodes formatted in the following manner:
 ```xml
@@ -27,7 +27,7 @@ Given an XML file containing nodes formatted in the following manner:
 ```
 The method call is thus:
 ```ruby
-Spreader.seed(path_to_xml, model_name, latitude_field_name, longitude_field_name)
+Spreader.sow(path_to_xml, model_name, latitude_field_name, longitude_field_name)
 ```
 Given a newline delimited CSV file containing one or more lines formatted in the following manner:
 ```
@@ -35,5 +35,5 @@ longitude_in_decimal_degrees,latitude_in_decimal_degrees
 ```
 The method call is thus:
 ```ruby
-Spreader.seed(path_to_csv, model_name, latitude_field_name, longitude_field_name)
+Spreader.sow(path_to_csv, model_name, latitude_field_name, longitude_field_name)
 ```

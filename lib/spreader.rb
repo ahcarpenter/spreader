@@ -65,7 +65,7 @@ class Spreader
     load(transform(data, model_name, latitude_field_name, longitude_field_name))
   end
   
-  def self.seed(relative_path, model_name, latitude_field_name, longitude_field_name)
+  def self.sow(relative_path, model_name, latitude_field_name, longitude_field_name)
     spreader = Spreader.new
     spreader.transformLoad(spreader.extract(relative_path){|data| XML::Reader.file("#{data}", :options => XML::Parser::Options::NOBLANKS | XML::Parser::Options::NOENT)}, model_name, latitude_field_name, longitude_field_name) if spreader.xml?(relative_path)
     spreader.transformLoad(spreader.extract(relative_path){|data| File.open("#{data}")}, model_name, latitude_field_name, longitude_field_name) if !spreader.xml?(relative_path)
