@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.name = 'spreader'
-  s.version = '0.0.11'
+  s.version = '0.0.12'
   s.date = '2012-06-30'
-  s.summary = 'Spreader provides database-agnostic methods for facilitating the injection of coordinates into a data store.'
+  s.summary = ''
   # s.description = ''
   s.authors = ''
   # s.email = ''
