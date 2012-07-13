@@ -54,10 +54,7 @@ class Spreader
   end
   
   def load(seeds)
-    empty = File.zero?('db/seeds.rb')
-    File.open('db/seeds.rb', 'a') {|f| f.write("\n" + seeds.chop)} if !empty
-    File.open('db/seeds.rb', 'a') {|f| f.write(seeds.chop)} if empty
-    # File.open('../test/fixtures/things.yml', 'w') {|f| f.write(seeds.chop.chop)}
+    File.file?('db/seeds.rb') && File.stat('db/seeds.rb').size > 0 ? File.open('db/seeds.rb', 'a') {|f| f.write("\n" + seeds.chop)} : File.open('db/seeds.rb', 'a') {|f| f.write(seeds.chop)}
     system('rake db:seed')
   end
   
