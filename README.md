@@ -1,5 +1,5 @@
 <!-- http://en.wikipedia.org/wiki/Comma-separated_values -->
-# Spreader [![Build Status](https://secure.travis-ci.org/ahcarpenter/spreader.png?branch=master)][travis]
+# Spreader [![Build Status](https://secure.travis-ci.org/ahcarpenter/spreader.png?branch=master)][travis] [![Gem Version](https://badge.fury.io/rb/spreader.svg)](https://badge.fury.io/rb/spreader)
 
 [travis]: http://travis-ci.org/ahcarpenter/spreader
 
